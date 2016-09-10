@@ -1,7 +1,7 @@
 #include <Wire.h>
 #include <NDIR_I2C.h>
 
-NDIR_I2C mySensor(0x4D); //Adaptor's I2C address (default: 0x4D)
+NDIR_I2C mySensor(0x4D); //Adaptor's I2C address (7-bit, default: 0x4D)
 
 void setup()
 {
