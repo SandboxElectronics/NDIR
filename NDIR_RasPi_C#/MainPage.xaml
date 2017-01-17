@@ -1,0 +1,17 @@
+<Page
+    x:Class="NDIR.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:NDIR"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <TextBlock x:Name="Text_Concentration" Margin="538,560,538,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="150" TextAlignment="Center" HorizontalAlignment="Center"/>
+        <TextBlock x:Name="Title" Margin="196,367,194,0" TextWrapping="Wrap" Text="Sandbox Electronics NDIR CO2 Sensor Demo" VerticalAlignment="Top" Height="104" FontSize="72" TextAlignment="Center" Width="1530" RenderTransformOrigin="0.497,0.778" HorizontalAlignment="Center"/>
+        <TextBlock x:Name="ppm" Margin="0,635,469,0" TextWrapping="Wrap" Text="ppm" VerticalAlignment="Top" Height="101" FontSize="72" TextAlignment="Center" Width="230" RenderTransformOrigin="0.497,0.778" HorizontalAlignment="Right"/>
+        <TextBlock x:Name="Text_Error" Margin="960,0,0,0" TextWrapping="Wrap" Text="Initializing ..." VerticalAlignment="Top" FontSize="36" HorizontalAlignment="Left" Width="944" Height="186" TextAlignment="Right"/>
+        <TextBlock x:Name="Text_Response" HorizontalAlignment="Left" Margin="0,1044,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="36" Width="960" FontSize="24"/>
+    </Grid>
+</Page>
