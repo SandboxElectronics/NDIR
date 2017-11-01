@@ -5,10 +5,10 @@ You can get one of those products on
 http://sandboxelectronics.com
 
 Version:
-V1.0
+V1.1
 
 Release Date:
-2016-03-30
+2017-11-01
 
 Author:
 Tiequan Shao          info@sandboxelectronics.com
@@ -31,9 +31,11 @@ class NDIR_I2C {
 
         uint8_t  begin();
         uint8_t  measure();
+        void     calibrateZero();
 
     private:
 	    static uint8_t cmd_measure[9];
+        static uint8_t cmd_calibrateZero[9];
 
         uint8_t  send(uint8_t *pdata, uint8_t n);
         uint8_t  receive(uint8_t *pbuf, uint8_t n);
