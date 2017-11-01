@@ -5,10 +5,10 @@ You can get one of those products on
 http://sandboxelectronics.com
 
 Version:
-V1.0
+V1.1
 
 Release Date:
-2016-03-30
+2017-11-01
 
 Author:
 Tiequan Shao          info@sandboxelectronics.com
@@ -31,7 +31,8 @@ Please keep the above information when you use this code in your project.
 
 class SoftwareSerial;
 
-uint8_t NDIR_SoftwareSerial::cmd_measure[9] = {0xFF,0x01,0x9C,0x00,0x00,0x00,0x00,0x00,0x63};
+uint8_t NDIR_SoftwareSerial::cmd_measure[9]       = {0xFF,0x01,0x9C,0x00,0x00,0x00,0x00,0x00,0x63};
+uint8_t NDIR_SoftwareSerial::cmd_calibrateZero[9] = {0xFF,0x01,0x87,0x00,0x00,0x00,0x00,0x00,0x78};
 
 NDIR_SoftwareSerial::NDIR_SoftwareSerial(uint8_t rx_pin, uint8_t tx_pin) : serial(rx_pin, tx_pin, false)
 {
@@ -76,6 +77,16 @@ uint8_t NDIR_SoftwareSerial::measure()
     }
 
     return false;
+}
+
+
+void NDIR_SoftwareSerial::calibrateZero()
+{
+    uint8_t i;
+
+    for (i=0; i<9; i++) {
+        serial.write(cmd_calibrateZero[i]);
+    }
 }
 
 
