@@ -5,10 +5,10 @@ You can get one of those products on
 http://sandboxelectronics.com
 
 Version:
-V1.0
+V1.1
 
 Release Date:
-2016-03-30
+2017-11-01
 
 Author:
 Tiequan Shao          info@sandboxelectronics.com
@@ -70,7 +70,8 @@ Please keep the above information when you use this code in your project.
  #define WIRE Wire1
 #endif
 
-uint8_t NDIR_I2C::cmd_measure[9] = {0xFF,0x01,0x9C,0x00,0x00,0x00,0x00,0x00,0x63};
+uint8_t NDIR_I2C::cmd_measure[9]       = {0xFF,0x01,0x9C,0x00,0x00,0x00,0x00,0x00,0x63};
+uint8_t NDIR_I2C::cmd_calibrateZero[9] = {0xFF,0x01,0x87,0x00,0x00,0x00,0x00,0x00,0x78};
 
 NDIR_I2C::NDIR_I2C(uint8_t i2c_addr)
 {
@@ -125,6 +126,17 @@ uint8_t NDIR_I2C::measure()
     }
 
     return false;
+}
+
+
+void NDIR_I2C::calibrateZero()
+{
+    if (i2c_addr) {
+        if (write_register(FCR, 0x07)) {
+            delayMicroseconds(1);
+            send(cmd_calibrateZero, 9);
+        }
+    }
 }
 
 
