@@ -135,6 +135,7 @@ void NDIR_I2C::calibrateZero()
         if (write_register(FCR, 0x07)) {
             delayMicroseconds(1);
             send(cmd_calibrateZero, 9);
+            delay(100);
         }
     }
 }
