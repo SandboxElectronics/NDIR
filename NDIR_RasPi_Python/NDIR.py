@@ -48,7 +48,7 @@ class Sensor():
         try:
             self.write_register(self.FCR, 0x07)
             self.send(self.cmd_measure)
-            time.sleep(0.01)
+            time.sleep(0.02)
             self.parse(self.receive())
             return True
         except IOError:
