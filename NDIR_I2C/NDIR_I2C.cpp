@@ -129,6 +129,24 @@ uint8_t NDIR_I2C::measure()
 }
 
 
+uint8_t NDIR_I2C::reset()
+{
+    if (i2c_addr) {
+        if (write_register(IOSTATE, 0x00)) {
+            if (write_register(IODIR, 0x01)) {
+                delay(1000);
+
+                if (write_register(IOSTATE, 0x01)) {
+                    return true;
+                }
+            }
+        }
+    }
+
+    return false;
+}
+
+
 void NDIR_I2C::calibrateZero()
 {
     if (i2c_addr) {
