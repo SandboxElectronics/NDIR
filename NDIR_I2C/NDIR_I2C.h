@@ -31,6 +31,7 @@ class NDIR_I2C {
 
         uint8_t  begin();
         uint8_t  measure();
+        uint8_t  reset();
         void     calibrateZero();
 
     private:
