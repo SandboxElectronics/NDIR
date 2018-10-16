@@ -5,13 +5,13 @@ You can get one of those products on
 http://sandboxelectronics.com
 
 Version:
-V1.1
+V1.2
 
 Release Date:
-2017-11-01
+2018-10-16
 
 Author:
-Tiequan Shao          info@sandboxelectronics.com
+Tiequan Shao          support@sandboxelectronics.com
 
 Lisence:
 CC BY-NC-SA 3.0
@@ -64,14 +64,12 @@ Please keep the above information when you use this code in your project.
     #include "WProgram.h"
 #endif
 
-#ifdef __AVR__
- #define WIRE Wire
-#else // Arduino Due
- #define WIRE Wire1
-#endif
+#define WIRE Wire
 
-uint8_t NDIR_I2C::cmd_measure[9]       = {0xFF,0x01,0x9C,0x00,0x00,0x00,0x00,0x00,0x63};
-uint8_t NDIR_I2C::cmd_calibrateZero[9] = {0xFF,0x01,0x87,0x00,0x00,0x00,0x00,0x00,0x78};
+uint8_t NDIR_I2C::cmd_measure[9]                = {0xFF,0x01,0x9C,0x00,0x00,0x00,0x00,0x00,0x63};
+uint8_t NDIR_I2C::cmd_calibrateZero[9]          = {0xFF,0x01,0x87,0x00,0x00,0x00,0x00,0x00,0x78};
+uint8_t NDIR_I2C::cmd_enableAutoCalibration[9]  = {0xFF,0x01,0x79,0xA0,0x00,0x00,0x00,0x00,0xE6};
+uint8_t NDIR_I2C::cmd_disableAutoCalibration[9] = {0xFF,0x01,0x79,0x00,0x00,0x00,0x00,0x00,0x86};
 
 NDIR_I2C::NDIR_I2C(uint8_t i2c_addr)
 {
@@ -153,6 +151,30 @@ void NDIR_I2C::calibrateZero()
         if (write_register(FCR, 0x07)) {
             delayMicroseconds(1);
             send(cmd_calibrateZero, 9);
+            delay(100);
+        }
+    }
+}
+
+
+void NDIR_I2C::enableAutoCalibration()
+{
+    if (i2c_addr) {
+        if (write_register(FCR, 0x07)) {
+            delayMicroseconds(1);
+            send(cmd_enableAutoCalibration, 9);
+            delay(100);
+        }
+    }
+}
+
+
+void NDIR_I2C::disableAutoCalibration()
+{
+    if (i2c_addr) {
+        if (write_register(FCR, 0x07)) {
+            delayMicroseconds(1);
+            send(cmd_disableAutoCalibration, 9);
             delay(100);
         }
     }
