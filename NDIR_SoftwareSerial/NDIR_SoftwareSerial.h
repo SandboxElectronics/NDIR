@@ -5,13 +5,13 @@ You can get one of those products on
 http://sandboxelectronics.com
 
 Version:
-V1.1
+V1.2
 
 Release Date:
-2017-11-01
+2019-01-10
 
 Author:
-Tiequan Shao          info@sandboxelectronics.com
+Tiequan Shao          support@sandboxelectronics.com
 
 Lisence:
 CC BY-NC-SA 3.0
@@ -31,13 +31,17 @@ class NDIR_SoftwareSerial {
         uint8_t  begin();
         uint8_t  measure();
         void     calibrateZero();
+        void     enableAutoCalibration();
+        void     disableAutoCalibration();
 
     private:
         SoftwareSerial serial;
 
         uint8_t  parse(uint8_t *pbuf);
 
-        static uint8_t  cmd_measure[9];
-        static uint8_t  cmd_calibrateZero[9];
+        static uint8_t cmd_measure[9];
+        static uint8_t cmd_calibrateZero[9];
+        static uint8_t cmd_enableAutoCalibration[9];
+        static uint8_t cmd_disableAutoCalibration[9];
 };
 #endif

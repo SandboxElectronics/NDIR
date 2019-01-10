@@ -5,13 +5,13 @@ You can get one of those products on
 http://sandboxelectronics.com
 
 Version:
-V1.1
+V1.2
 
 Release Date:
-2017-11-01
+2019-01-10
 
 Author:
-Tiequan Shao          info@sandboxelectronics.com
+Tiequan Shao          support@sandboxelectronics.com
 
 Lisence:
 CC BY-NC-SA 3.0
@@ -31,8 +31,10 @@ Please keep the above information when you use this code in your project.
 
 class SoftwareSerial;
 
-uint8_t NDIR_SoftwareSerial::cmd_measure[9]       = {0xFF,0x01,0x9C,0x00,0x00,0x00,0x00,0x00,0x63};
-uint8_t NDIR_SoftwareSerial::cmd_calibrateZero[9] = {0xFF,0x01,0x87,0x00,0x00,0x00,0x00,0x00,0x78};
+uint8_t NDIR_SoftwareSerial::cmd_measure[9]                = {0xFF,0x01,0x9C,0x00,0x00,0x00,0x00,0x00,0x63};
+uint8_t NDIR_SoftwareSerial::cmd_calibrateZero[9]          = {0xFF,0x01,0x87,0x00,0x00,0x00,0x00,0x00,0x78};
+uint8_t NDIR_SoftwareSerial::cmd_enableAutoCalibration[9]  = {0xFF,0x01,0x79,0xA0,0x00,0x00,0x00,0x00,0xE6};
+uint8_t NDIR_SoftwareSerial::cmd_disableAutoCalibration[9] = {0xFF,0x01,0x79,0x00,0x00,0x00,0x00,0x00,0x86};
 
 NDIR_SoftwareSerial::NDIR_SoftwareSerial(uint8_t rx_pin, uint8_t tx_pin) : serial(rx_pin, tx_pin, false)
 {
@@ -86,6 +88,26 @@ void NDIR_SoftwareSerial::calibrateZero()
 
     for (i=0; i<9; i++) {
         serial.write(cmd_calibrateZero[i]);
+    }
+}
+
+
+void NDIR_SoftwareSerial::enableAutoCalibration()
+{
+    uint8_t i;
+
+    for (i=0; i<9; i++) {
+        serial.write(cmd_enableAutoCalibration[i]);
+    }
+}
+
+
+void NDIR_SoftwareSerial::disableAutoCalibration()
+{
+    uint8_t i;
+
+    for (i=0; i<9; i++) {
+        serial.write(cmd_disableAutoCalibration[i]);
     }
 }
 
