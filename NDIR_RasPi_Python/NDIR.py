@@ -5,6 +5,8 @@ class Sensor():
     cmd_measure = [0xFF,0x01,0x9C,0x00,0x00,0x00,0x00,0x00,0x63]
     ppm         = 0
 
+    IODIR       = 0X0A << 3
+    IOSTATE     = 0X0B << 3
     IOCONTROL   = 0X0E << 3
     FCR         = 0X02 << 3
     LCR         = 0X03 << 3
@@ -46,7 +48,7 @@ class Sensor():
         try:
             self.write_register(self.FCR, 0x07)
             self.send(self.cmd_measure)
-            time.sleep(0.01)
+            time.sleep(0.02)
             self.parse(self.receive())
             return True
         except IOError:
@@ -96,3 +98,15 @@ class Sensor():
                 break
 
         return buf
+
+    def power_on(self):
+        state = self.read_register(self.IOSTATE)
+        state |= 1
+        self.write_register(self.IOSTATE, state)
+
+    def power_off(self):
+        self.write_register(self.IODIR,  0x03)
+        state = self.read_register(self.IOSTATE)
+        state &= ~1
+        self.write_register(self.IOSTATE, state)
+
