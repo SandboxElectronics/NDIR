@@ -7,6 +7,9 @@ void setup()
 {
     Serial.begin(9600);
 
+    //if working with esp-based boards, set which pins you're using (in this case SDA is D2, SCL is D3)
+    //mySensor.setCustomWirePins(D2, D3);
+
     if (mySensor.begin()) {
         Serial.println("Wait 10 seconds for sensor initialization...");
         delay(10000);
