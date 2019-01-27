@@ -84,7 +84,7 @@ NDIR_I2C::NDIR_I2C(uint8_t i2c_addr)
     }
 }
 
-uint8_t NDIR_I2C::setCustomWirePorts(uint8_t sda, uint8_t scl) {
+void NDIR_I2C::setCustomWirePorts(uint8_t sda, uint8_t scl) {
     customSda = sda;
     customScl = scl;
 }

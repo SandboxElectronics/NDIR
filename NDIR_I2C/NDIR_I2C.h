@@ -30,7 +30,7 @@ class NDIR_I2C {
         uint32_t ppm;
 
         uint8_t  begin();
-            uint8_t  setCustomWirePorts(uint8_t sda, uint8_t scl);
+        void  setCustomWirePorts(uint8_t sda, uint8_t scl);
         uint8_t  measure();
         uint8_t  reset();
         void     calibrateZero();
