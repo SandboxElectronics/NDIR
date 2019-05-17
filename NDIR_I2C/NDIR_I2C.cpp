@@ -271,7 +271,6 @@ uint8_t NDIR_I2C::receive(uint8_t *pbuf, uint8_t n) {
 
 uint8_t NDIR_I2C::read_register(uint8_t reg_addr, uint8_t *pval)
 {
-    uint8_t result;
 
     WIRE.beginTransmission(i2c_addr);
     WIRE.write(reg_addr << 3);
@@ -291,7 +290,6 @@ uint8_t NDIR_I2C::read_register(uint8_t reg_addr, uint8_t *pval)
 
 uint8_t NDIR_I2C::write_register(uint8_t reg_addr, uint8_t *pdata, uint8_t n)
 {
-    uint8_t result;
 
     WIRE.beginTransmission(i2c_addr);
     WIRE.write(reg_addr << 3);
