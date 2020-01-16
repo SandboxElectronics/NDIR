@@ -71,6 +71,10 @@ uint8_t NDIR_I2C::cmd_calibrateZero[9]          = {0xFF,0x01,0x87,0x00,0x00,0x00
 uint8_t NDIR_I2C::cmd_enableAutoCalibration[9]  = {0xFF,0x01,0x79,0xA0,0x00,0x00,0x00,0x00,0xE6};
 uint8_t NDIR_I2C::cmd_disableAutoCalibration[9] = {0xFF,0x01,0x79,0x00,0x00,0x00,0x00,0x00,0x86};
 
+#define UNSET 254
+uint8_t customSda = UNSET;
+uint8_t customScl = UNSET;
+
 NDIR_I2C::NDIR_I2C(uint8_t i2c_addr)
 {
     if (i2c_addr >= 8 && i2c_addr < 120) {
@@ -80,11 +84,20 @@ NDIR_I2C::NDIR_I2C(uint8_t i2c_addr)
     }
 }
 
+void NDIR_I2C::setCustomWirePorts(uint8_t sda, uint8_t scl) {
+    customSda = sda;
+    customScl = scl;
+}
 
 uint8_t NDIR_I2C::begin()
 {
     if (i2c_addr) {
-        WIRE.begin();
+        if(customSda == UNSET || customScl == UNSET) {
+            WIRE.begin();
+        } else {
+            WIRE.begin(customSda, customScl);
+        }
+
         write_register(IOCONTROL, 0x08);
 
         if (write_register(FCR, 0x07)) {
@@ -258,7 +271,6 @@ uint8_t NDIR_I2C::receive(uint8_t *pbuf, uint8_t n) {
 
 uint8_t NDIR_I2C::read_register(uint8_t reg_addr, uint8_t *pval)
 {
-    uint8_t result;
 
     WIRE.beginTransmission(i2c_addr);
     WIRE.write(reg_addr << 3);
@@ -278,7 +290,6 @@ uint8_t NDIR_I2C::read_register(uint8_t reg_addr, uint8_t *pval)
 
 uint8_t NDIR_I2C::write_register(uint8_t reg_addr, uint8_t *pdata, uint8_t n)
 {
-    uint8_t result;
 
     WIRE.beginTransmission(i2c_addr);
     WIRE.write(reg_addr << 3);
